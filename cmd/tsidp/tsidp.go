@@ -502,6 +502,7 @@ func (s *idpServer) serveUserInfo(w http.ResponseWriter, r *http.Request) {
 	ui.Sub = ar.remoteUser.Node.User.String()
 	ui.Name = ar.remoteUser.UserProfile.DisplayName
 	ui.Email = ar.remoteUser.UserProfile.LoginName
+	ui.EmailVerified = true
 	ui.Picture = ar.remoteUser.UserProfile.ProfilePicURL
 
 	// TODO(maisem): not sure if this is the right thing to do
@@ -535,11 +536,12 @@ func (s *idpServer) serveUserInfo(w http.ResponseWriter, r *http.Request) {
 }
 
 type userInfo struct {
-	Sub      string `json:"sub"`
-	Name     string `json:"name"`
-	Email    string `json:"email"`
-	Picture  string `json:"picture"`
-	UserName string `json:"username"`
+	Sub           string `json:"sub"`
+	Name          string `json:"name"`
+	Email         string `json:"email"`
+	EmailVerified bool   `json:"email_verified"`
+	Picture       string `json:"picture"`
+	UserName      string `json:"username"`
 }
 
 type capRule struct {
